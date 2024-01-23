@@ -8,10 +8,8 @@
 import Foundation
 import UIKit
 
-final class AppetizersNetworkProtocolImpl: AppetizerNetworkProtocol {
-    
-    static let shared = AppetizersNetworkProtocolImpl()
-    
+final class NetworkClientImpl: NetworkClientProtocol {
+        
     private let cache = NSCache<
         NSString,
         UIImage
@@ -100,7 +98,7 @@ final class AppetizersNetworkProtocolImpl: AppetizerNetworkProtocol {
     //
     //    }
     
-    func getAppetizers() async throws -> [Appetizer] {
+    func fetch() async throws -> [Appetizer] {
         
         guard let url = URL(
             string: appetizerURL
@@ -108,76 +106,128 @@ final class AppetizersNetworkProtocolImpl: AppetizerNetworkProtocol {
             throw AppetizerError.invalidURL
         }
         
-        let (data, _) = try await URLSession.shared.data(from: url)
+        let (
+            data,
+            response
+        ) = try await URLSession.shared.data(
+            from: url
+        )
         
+        // TODO: Add in guard statement to check URL response is 200 OK else throw error
+        
+//        guard let object : [T] = try? JSONDecoder().decode([T].self, from: data) else {
+//            throw AppetizerError.invalidData
+//        }
+//        return object
         do {
             let decoder = JSONDecoder()
             return try decoder.decode(
                 AppetizerResponse.self,
                 from: data
-            ).request
+            ).request.self
         } catch {
             throw AppetizerError.invalidData
         }
     }
     
-    func getImage(
-        fromURLString urlString: String,
-        completed: @escaping (
-            UIImage?
-        ) -> Void
-    ) {
+    func fetchImage(
+        from urlString: String
+    ) async throws -> UIImage? {
+        
         let cacheKey = NSString(
             string: urlString
         )
-        
         // Check if we have already downloaded the image
-        if let image = cache.object(
+        if let savedImage = cache.object(
             forKey: cacheKey
         ) {
-            completed(
-                image
-            )
-            return
+            return savedImage
         }
         
         guard let url = URL(
             string: urlString
         ) else {
-            completed(
-                nil
-            )
-            return
+            return nil
         }
         
-        let task = URLSession.shared.dataTask(
-            with: URLRequest(
-                url: url
-            )
-        ) {
+        let(
             data,
-            response,
-            error in
-            
-            guard let data, let image = UIImage(
-                data: data
-            ) else {
-                completed(
-                    nil
-                )
-                return
-            }
-            
-            // Save image to cache so we don't have to download it again
-            self.cache.setObject(
-                image,
-                forKey: cacheKey
-            )
-            completed(
-                image
-            )
-            
+            _
+        ) = try await URLSession.shared.data(
+            from: url
+        )
+        
+        guard let image = UIImage(
+            data: data
+        ) else {
+            throw AppetizerError.unableToComplete
         }
-        task.resume()
+        
+        self.cache.setObject(
+            image,
+            forKey: cacheKey
+        )
+        
+        return image
     }
+    
+//    func getImage(
+//        fromURLString urlString: String,
+//        completed: @escaping (
+//            UIImage?
+//        ) -> Void
+//    ) {
+//        let cacheKey = NSString(
+//            string: urlString
+//        )
+//        
+//        // Check if we have already downloaded the image
+//        if let image = cache.object(
+//            forKey: cacheKey
+//        ) {
+//            completed(
+//                image
+//            )
+//            return
+//        }
+//        
+//        guard let url = URL(
+//            string: urlString
+//        ) else {
+//            completed(
+//                nil
+//            )
+//            return
+//        }
+//        
+//        let task = URLSession.shared.dataTask(
+//            with: URLRequest(
+//                url: url
+//            )
+//        ) {
+//            data,
+//            response,
+//            error in
+//            
+//            guard let data, let image = UIImage(
+//                data: data
+//            ) else {
+//                completed(
+//                    nil
+//                )
+//                return
+//            }
+//            
+//            // Save image to cache so we don't have to download it again
+//            self.cache.setObject(
+//                image,
+//                forKey: cacheKey
+//            )
+//            completed(
+//                image
+//            )
+//            
+//        }
+//        task.resume()
+//    }
 }
