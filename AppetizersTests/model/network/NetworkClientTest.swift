@@ -19,7 +19,7 @@ final class NetworkClientTest: XCTestCase {
     
     override func setUp() {
         jsonUrl = URL(
-            string: "https://reqres.in/users"
+            string: "https://seanallen-course-backend.herokuapp.com//images//appetizers"
         )
         imageUrl = URL(
             string: "https://seanallen-course-backend.herokuapp.com//images//appetizers//asian-flank-steak.jpg"
@@ -39,21 +39,7 @@ final class NetworkClientTest: XCTestCase {
     
     func test_makeANetworkRequest_successfulResponse() async throws {
         // ASSIGN
-        let data = StaticLoader.loadJSONFromFileReturnData(
-            file: "MockNetworkResponse"
-        )
-        MockURLSession.loadingHandler = {
-            let response = HTTPURLResponse(
-                url: self.jsonUrl,
-                statusCode: 200,
-                httpVersion: nil,
-                headerFields: nil
-            )
-            return (
-                response!,
-                data
-            )
-        }
+        setUpLoadingHandlerWithJSON()
         let expectedResult = try StaticLoader.loadJSONFromFileReturnDecodedData(
             file: "MockNetworkResponse"
         )
@@ -72,22 +58,7 @@ final class NetworkClientTest: XCTestCase {
     // This is on the border of being a UI test
     func test_makeANetworkRequestForImage_successfulResponse() async throws {
         // ASSIGN
-        let data = StaticLoader.loadImageFromFileReturnData(
-            file: "AsianFlankSteak",
-            fileExt: "jpg"
-        )
-        MockURLSession.loadingHandler = {
-            let response = HTTPURLResponse(
-                url: self.imageUrl,
-                statusCode: 200,
-                httpVersion: nil,
-                headerFields: nil
-            )
-            return (
-                response!,
-                data
-            )
-        }
+        setUpLoadingHandlerWithImage()
         let expectedResult: UIImage? = try StaticLoader.loadImageFromFileReturnUIImage(
             file: "AsianFlankSteak",
             fileExt: "jpg"
@@ -105,13 +76,65 @@ final class NetworkClientTest: XCTestCase {
     
     func test_makeANetworkRequestForImage_failure_invalidURL() async {
         // ASSIGN
-        let data = StaticLoader.loadImageFromFileReturnData(
-            file: "AsianFlankSteak",
-            fileExt: "jpg"
+        setUpLoadingHandlerWithImage()
+        // ACT
+        do {
+            _ = try await client.fetchImage(
+                session: self.session,
+                from: ""
+            )
+        } catch {
+            // ASSERT
+            guard let appetizerError = error as? AppetizerError else {
+                XCTFail(
+                    "Wrong type of error"
+                )
+                return
+            }
+            print(
+                "Exception has been caught"
+            )
+            XCTAssertEqual(
+                appetizerError,
+                AppetizerError.invalidURL
+            )
+        }
+    }
+    
+    func test_makeANetworkRequestForImage_failure_invalidData() async {
+        // ASSIGN
+        // We are intentionally setting it up with the wrong kind of data
+        setUpLoadingHandlerWithJSON()
+        do {
+            _ = try await client.fetchImage(
+                session: self.session,
+                from: self.imageUrl.absoluteString
+            )
+        } catch {
+            // ASSERT
+            guard let appetizerError = error as? AppetizerError else {
+                XCTFail(
+                    "Wrong type of error"
+                )
+                return
+            }
+            print(
+                "Exception has been caught"
+            )
+            XCTAssertEqual(
+                appetizerError,
+                AppetizerError.unableToComplete
+            )
+        }
+    }
+    
+    private func setUpLoadingHandlerWithJSON() {
+        let data = StaticLoader.loadJSONFromFileReturnData(
+            file: "MockNetworkResponse"
         )
         MockURLSession.loadingHandler = {
             let response = HTTPURLResponse(
-                url: self.imageUrl,
+                url: self.jsonUrl,
                 statusCode: 200,
                 httpVersion: nil,
                 headerFields: nil
@@ -121,20 +144,21 @@ final class NetworkClientTest: XCTestCase {
                 data
             )
         }
-        // ACT
-        // ASSERT
-        do {
-            _ = try await client.fetchImage(
-                session: self.session,
-                from: ""
+    }
+    
+    private func setUpLoadingHandlerWithImage() {
+        let data = StaticLoader.loadImageFromFileReturnData(file: "AsianFlankSteak", fileExt: "jpg")
+        MockURLSession.loadingHandler = {
+            let response = HTTPURLResponse(
+                url: self.jsonUrl,
+                statusCode: 200,
+                httpVersion: nil,
+                headerFields: nil
             )
-        } catch {
-            guard let appetizerError = error as? AppetizerError else {
-                XCTFail("Wrong type of error")
-                return
-            }
-            print("Exception has been caught")
-            XCTAssertEqual(appetizerError, AppetizerError.invalidURL)
+            return (
+                response!,
+                data
+            )
         }
     }
 }
