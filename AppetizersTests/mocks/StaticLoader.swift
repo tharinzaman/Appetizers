@@ -7,10 +7,11 @@
 
 import Foundation
 @testable import Appetizers
+import XCTest
 
-struct StaticJSONLoader {
+struct StaticLoader {
     
-    static func loadJSONFromFile(
+    static func loadJSONFromFileReturnDecodedData(
         file: String
     ) throws -> [Appetizer] {
         
@@ -33,5 +34,21 @@ struct StaticJSONLoader {
         } catch {
             throw AppetizerError.unableToComplete
         }
+    }
+    
+    static func loadJSONFromFileReturnData(
+        file: String
+    ) -> Data? {
+        guard let path = Bundle.main.path(
+            forResource: file,
+            ofType: "json") else {
+            XCTFail("Failed to get path")
+            return nil
+        }
+        guard let data = FileManager.default.contents(atPath: path) else {
+            XCTFail("Failed to get data")
+            return nil
+        }
+        return data
     }
 }
