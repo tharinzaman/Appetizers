@@ -102,4 +102,39 @@ final class NetworkClientTest: XCTestCase {
             result?.images
         )
     }
+    
+    func test_makeANetworkRequestForImage_failure_invalidURL() async {
+        // ASSIGN
+        let data = StaticLoader.loadImageFromFileReturnData(
+            file: "AsianFlankSteak",
+            fileExt: "jpg"
+        )
+        MockURLSession.loadingHandler = {
+            let response = HTTPURLResponse(
+                url: self.imageUrl,
+                statusCode: 200,
+                httpVersion: nil,
+                headerFields: nil
+            )
+            return (
+                response!,
+                data
+            )
+        }
+        // ACT
+        // ASSERT
+        do {
+            _ = try await client.fetchImage(
+                session: self.session,
+                from: ""
+            )
+        } catch {
+            guard let appetizerError = error as? AppetizerError else {
+                XCTFail("Wrong type of error")
+                return
+            }
+            print("Exception has been caught")
+            XCTAssertEqual(appetizerError, AppetizerError.invalidURL)
+        }
+    }
 }
