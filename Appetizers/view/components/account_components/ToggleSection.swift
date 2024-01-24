@@ -8,11 +8,25 @@
 import SwiftUI
 
 struct ToggleSection: View {
+    @ObservedObject var viewModel: AccountViewModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Section(
+            header: Text(
+                "Requests"
+            )
+        ) {
+            Toggle(
+                "Extra napkins",
+                isOn: $viewModel.user.extraNapkins
+            )
+            Toggle(
+                "Frequent refills",
+                isOn: $viewModel.user.frequentRefills
+            )
+        }.toggleStyle(
+            SwitchToggleStyle(
+                tint: .brandPrimary
+            )
+        )
     }
-}
-
-#Preview {
-    ToggleSection()
 }

@@ -6,30 +6,73 @@
 //
 
 import XCTest
+@testable import Appetizers
 
 final class OrderTest: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    let order = Order()
+    
+    override func tearDown() {
+        order.removeAll()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func test_AddItemToOrder_Success() {
+        // ARRANGE
+        order.add(
+            MockData.sampleAppetizer
+        )
+        // ACT
+        let result = order.size()
+        // ASSERT
+        XCTAssertEqual(
+            result,
+            1
+        )
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func test_RemoveItemFromOrder_Success() {
+        // ARRANGE
+        order.add(
+            MockData.sampleAppetizer
+        )
+        order.remove(
+            atOffSets: [0]
+        )
+        // ACT
+        let result = order.hasItems()
+        // ASSERT
+        XCTAssertFalse(
+            result
+        )
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    // Write a test where you try to remove but there is nothing in the order
+    
+    func test_RemoveAllItemsFromOrder_Success() {
+        // ARRANGE
+        order.items = MockData.orderItems
+        order.removeAll()
+        // ACT
+        let result = order.hasItems()
+        // ASSERT
+        XCTAssertFalse(
+            result
+        )
     }
-
+    // Write a test where you try to remove ALL but there is nothing in the order
+    
+    func test_CalculateTotalPriceForItemsInOrder_Success() {
+        // ARRANGE
+        order.items = MockData.orderItems
+        // ACT
+        let result = order.totalPrice
+        // ASSERT
+        XCTAssertEqual(
+            result,
+            (
+                MockData.orderItem1.price +
+                MockData.orderItem2.price +
+                MockData.orderItem3.price
+            )
+        )
+    }
 }

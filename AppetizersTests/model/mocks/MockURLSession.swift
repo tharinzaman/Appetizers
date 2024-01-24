@@ -8,9 +8,13 @@
 import Foundation
 import XCTest
 
+/** 
+This mock class simulates an API call where we make a request and get back a response and data.
+We use it in order to test the network client.
+*/
 class MockURLSession: URLProtocol {
     
-    static var loadingHandler: (() -> (HTTPURLResponse, Data))?
+    static var loadingHandler: (() -> (HTTPURLResponse, Data?))?
     
     override class func canInit(with request: URLRequest) -> Bool {
         return true
@@ -29,5 +33,13 @@ class MockURLSession: URLProtocol {
         
         let (response, data) = handler()
         client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+        if let data {
+            client?.urlProtocol(self, didLoad: data)
+        }
+        client?.urlProtocolDidFinishLoading(self)
+    }
+    
+    override func stopLoading() {
+        
     }
 }

@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct AppetizersApp: App {
+    var order = Order()
+    let network = NetworkClientImpl()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppetizerTabView(
+                network: network
+            ).environmentObject(order)
         }
     }
 }

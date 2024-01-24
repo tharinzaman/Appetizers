@@ -8,11 +8,25 @@
 import SwiftUI
 
 struct OrderView: View {
+    @EnvironmentObject var order: Order
+    let network: NetworkClientProtocol
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            ZStack {
+                AppetizersOrderView(network: network)
+                if !order.hasItems() {
+                    EmptyOrderView(
+                        imageName: "empty-order",
+                        message: "There are currently no appetizers in your order. \nPlease add some delicious appetizers so you can checkout!"
+                    )
+                }
+            }
+            .navigationTitle(
+                "🧾 Order"
+            )
+        }
     }
+    
+    
 }
 
-#Preview {
-    OrderView()
-}

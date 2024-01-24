@@ -7,3 +7,17 @@
 
 import Foundation
 
+//class MockStorageProtocolImpl: StorageProtocol {
+//    
+//    
+//    
+//    func saveUser(user: User) throws {
+//        
+//    }
+//    
+//    func retrieveUser(key: String) throws -> User {
+//        
+//    }
+//    
+//    
+//}

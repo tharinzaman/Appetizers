@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct AppetizerDetailsTextView: View {
+    let appetizer: Appetizer
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text(appetizer.name)
+                .font(.title2)
+                .fontWeight(.semibold)
+            Text(appetizer.description)
+                .multilineTextAlignment(.center)
+                .font(.body)
+                .padding()
+        }
     }
 }
 
 #Preview {
-    AppetizerDetailsTextView()
+    AppetizerDetailsTextView(appetizer: MockData.sampleAppetizer)
 }

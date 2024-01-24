@@ -9,7 +9,12 @@ import Foundation
 import SwiftUI
 
 protocol NetworkClientProtocol {
-    func getAppetizers() async throws -> [Appetizer]
-    func getImage(
+    func fetch(
+        session: URLSession
+    ) async throws -> [Appetizer]
+    
+    func fetchImage(
+        session: URLSession,
         from urlString: String
-    ) async throws -> UIImage?}
+    ) async throws -> UIImage?
+}

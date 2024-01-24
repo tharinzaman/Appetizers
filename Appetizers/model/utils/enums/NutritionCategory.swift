@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+enum NutritionCategory: String {
+    case calories = "Calories"
+    case protein = "Protein"
+    case carbs = "Carbs"
+}

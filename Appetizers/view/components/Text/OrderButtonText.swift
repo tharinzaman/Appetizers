@@ -7,18 +7,23 @@
 
 import SwiftUI
 
-struct OrderButtonText: View {
+struct OrderButton: View {
     
     let price: Double
-    let action: String
+    let toDo: String
+    
+    let action: () -> Void
     
     var body: some View {
-        Text("$\(price, specifier: "%.2f") - \(action)")
-            .font(.title3)
-            .fontWeight(.semibold)
-            .frame(width: 260, height: 50)
-            .foregroundColor(.white)
-            .background(Color.brandPrimary)
-            .cornerRadius(10)
+        Button {
+            action()
+        } label: {
+            Text("$\(price, specifier: "%.2f") - \(toDo)")
+                .font(.title3)
+                .fontWeight(.semibold)
+        }
+        .modifier(StandardButtonStyle())
+//        .standardButtonStyle() This is another way of doing what we do in the line above
+        .padding(30)
     }
 }

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol StorageProtocol {
     func saveUser(user: User) throws -> Void
     func retrieveUser(key: String) throws -> User
