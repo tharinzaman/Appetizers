@@ -59,8 +59,8 @@
 		E1D62E042B505E01000E9824 /* OrderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D62E032B505E01000E9824 /* OrderTest.swift */; };
 		E1D62E072B506BCA000E9824 /* NetworkClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D62E062B506BCA000E9824 /* NetworkClientProtocol.swift */; };
 		E1D62E0B2B50778E000E9824 /* StorageProtocolImplTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D62E0A2B50778E000E9824 /* StorageProtocolImplTest.swift */; };
-		E1DBE92E2B61822B00E46417 /* AsianFlankSteak.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E1DBE92D2B61822B00E46417 /* AsianFlankSteak.jpg */; };
-		E1DBE92F2B61825E00E46417 /* AsianFlankSteak.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E1DBE92D2B61822B00E46417 /* AsianFlankSteak.jpg */; };
+		E1EE6FC52B6295D7000F8219 /* AsianFlankSteak.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E1EE6FC42B6295D7000F8219 /* AsianFlankSteak.jpg */; };
+		E1EE6FC62B6295D7000F8219 /* AsianFlankSteak.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E1EE6FC42B6295D7000F8219 /* AsianFlankSteak.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,7 +135,7 @@
 		E1D62E032B505E01000E9824 /* OrderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTest.swift; sourceTree = "<group>"; };
 		E1D62E062B506BCA000E9824 /* NetworkClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientProtocol.swift; sourceTree = "<group>"; };
 		E1D62E0A2B50778E000E9824 /* StorageProtocolImplTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocolImplTest.swift; sourceTree = "<group>"; };
-		E1DBE92D2B61822B00E46417 /* AsianFlankSteak.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = AsianFlankSteak.jpg; path = ../../../../../../Desktop/AsianFlankSteak.jpg; sourceTree = "<group>"; };
+		E1EE6FC42B6295D7000F8219 /* AsianFlankSteak.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = AsianFlankSteak.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,7 +183,7 @@
 		E1977A942B603C6A0013AB57 /* files */ = {
 			isa = PBXGroup;
 			children = (
-				E1DBE92D2B61822B00E46417 /* AsianFlankSteak.jpg */,
+				E1EE6FC42B6295D7000F8219 /* AsianFlankSteak.jpg */,
 				E13EA8A42B595CC700DE4054 /* MockNetworkResponse.json */,
 			);
 			path = files;
@@ -601,9 +601,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1DBE92F2B61825E00E46417 /* AsianFlankSteak.jpg in Resources */,
 				E1977A8F2B5EE5410013AB57 /* MockNetworkResponse.json in Resources */,
 				E1C30F2F2B307CDB00274192 /* Preview Assets.xcassets in Resources */,
+				E1EE6FC52B6295D7000F8219 /* AsianFlankSteak.jpg in Resources */,
 				E1C30F2C2B307CDB00274192 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -612,7 +612,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1DBE92E2B61822B00E46417 /* AsianFlankSteak.jpg in Resources */,
+				E1EE6FC62B6295D7000F8219 /* AsianFlankSteak.jpg in Resources */,
 				E1977A8E2B5EE4D40013AB57 /* MockNetworkResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

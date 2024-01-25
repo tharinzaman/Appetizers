@@ -111,7 +111,7 @@ final class NetworkClientImpl: NetworkClientProtocol {
         let (
             data,
             _
-        ) = try await URLSession.shared.data(
+        ) = try await session.data(
             from: url
         )
         
@@ -157,7 +157,7 @@ final class NetworkClientImpl: NetworkClientProtocol {
         guard let image = UIImage(
             data: data
         ) else {
-            throw AppetizerError.unableToComplete
+            throw AppetizerError.invalidData
         }
         
         self.cache.setObject(

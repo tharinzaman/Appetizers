@@ -54,8 +54,36 @@ final class NetworkClientTest: XCTestCase {
             "The returned response should be decoded should be decoded properly"
         )
     }
+
+    // For some reason the test isn't throwing the error
+    func test_makeANetworkRequest_failure_invalidData() async {
+        // ASSIGN
+        // Intentionally use wrong type of data
+        setUpLoadingHandlerWithImage()
+        // ACT
+        do {
+            _ = try await client.fetch(
+                session: self.session
+            )
+            print("No exception thrown")
+        } catch {
+            guard let appetizerError = error as? AppetizerError else {
+                XCTFail(
+                    "Wrong type of error"
+                )
+                return
+            }
+            print(
+                "Exception has been caught"
+            )
+            // ASSERT
+            XCTAssertEqual(
+                appetizerError,
+                AppetizerError.invalidData
+            )
+        }
+    }
     
-    // This is on the border of being a UI test
     func test_makeANetworkRequestForImage_successfulResponse() async throws {
         // ASSIGN
         setUpLoadingHandlerWithImage()
@@ -105,13 +133,13 @@ final class NetworkClientTest: XCTestCase {
         // ASSIGN
         // We are intentionally setting it up with the wrong kind of data
         setUpLoadingHandlerWithJSON()
+        // ACT
         do {
             _ = try await client.fetchImage(
                 session: self.session,
                 from: self.imageUrl.absoluteString
             )
         } catch {
-            // ASSERT
             guard let appetizerError = error as? AppetizerError else {
                 XCTFail(
                     "Wrong type of error"
@@ -121,9 +149,10 @@ final class NetworkClientTest: XCTestCase {
             print(
                 "Exception has been caught"
             )
+            // ASSERT
             XCTAssertEqual(
                 appetizerError,
-                AppetizerError.unableToComplete
+                AppetizerError.invalidData
             )
         }
     }
@@ -147,10 +176,13 @@ final class NetworkClientTest: XCTestCase {
     }
     
     private func setUpLoadingHandlerWithImage() {
-        let data = StaticLoader.loadImageFromFileReturnData(file: "AsianFlankSteak", fileExt: "jpg")
+        let data = StaticLoader.loadImageFromFileReturnData(
+            file: "AsianFlankSteak",
+            fileExt: "jpg"
+        )
         MockURLSession.loadingHandler = {
             let response = HTTPURLResponse(
-                url: self.jsonUrl,
+                url: self.imageUrl,
                 statusCode: 200,
                 httpVersion: nil,
                 headerFields: nil
