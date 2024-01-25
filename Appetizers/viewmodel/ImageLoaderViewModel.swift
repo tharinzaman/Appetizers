@@ -34,8 +34,9 @@ final class ImageLoaderViewModel: ObservableObject {
 //        }
 //    }
     
-    func load(from urlString: String) {
-        Task {
+    @MainActor
+    func load(from urlString: String) async {
+//        Task {
             do {
                 let downloadedImage = try await network.fetchImage(session: .shared, from: urlString)
                 guard let downloadedImage else {
@@ -45,6 +46,6 @@ final class ImageLoaderViewModel: ObservableObject {
             } catch {
                 print("Unable to download image")
             }
-        }
+//        }
     }
 }

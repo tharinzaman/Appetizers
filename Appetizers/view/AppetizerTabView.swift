@@ -22,7 +22,7 @@ struct AppetizerTabView: View {
                         systemImage: "house.circle.fill"
                     )
                 }
-            AccountView(storage: StorageProtocolImpl())
+            AccountView(storage: StorageImpl())
                 .tabItem {
                     Label(
                         "Account",

@@ -40,7 +40,7 @@ final class NetworkClientTest: XCTestCase {
     func test_makeANetworkRequest_successfulResponse() async throws {
         // ASSIGN
         setUpLoadingHandlerWithJSON()
-        let expectedResult = try StaticLoader.loadJSONFromFileReturnDecodedData(
+        let expectedResult = StaticLoader.loadJSONFromFileReturnDecodedData(
             file: "MockNetworkResponse"
         )
         // ACT
@@ -87,7 +87,7 @@ final class NetworkClientTest: XCTestCase {
     func test_makeANetworkRequestForImage_successfulResponse() async throws {
         // ASSIGN
         setUpLoadingHandlerWithImage()
-        let expectedResult: UIImage? = try StaticLoader.loadImageFromFileReturnUIImage(
+        let expectedResult: UIImage? = StaticLoader.loadImageFromFileReturnUIImage(
             file: "AsianFlankSteak",
             fileExt: "jpg"
         )

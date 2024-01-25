@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-@MainActor final class AppetizerListViewModel: ObservableObject {
+final class AppetizerListViewModel: ObservableObject {
     
     private let network: NetworkClientProtocol
     
@@ -21,15 +21,15 @@ import SwiftUI
     @Published var areAppetizersLoading: Bool = false
     @Published var shouldShowDetail = false
     @Published var selectedAppetizer: Appetizer? = nil
-    
-    func getAppetizers() {
+        
+    @MainActor
+    func getAppetizers() async {
         areAppetizersLoading = true
-        Task {
+//        Task {
             do {
                 appetizers = try await network.fetch(session: .shared)
                 areAppetizersLoading = false
             } catch {
-                // Following line checks that it's a specific error and not one thrown by Swift.
                 if let appetizerError = error as? AppetizerError {
                     alertItem = switch appetizerError {
                     case .invalidData: ErrorAlertItems.invalidData
@@ -42,6 +42,6 @@ import SwiftUI
                 }
                 areAppetizersLoading = false
             }
-        }
+//        }
     }
 }

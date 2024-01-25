@@ -10,7 +10,7 @@ import XCTest
 
 final class StorageProtocolImplTest: XCTestCase {
     
-    let storage: StorageProtocol = StorageProtocolImpl()
+    let storage: StorageProtocol = StorageImpl()
 
     func test_SaveUserToAppStorage_Success() {
         // ARRANGE

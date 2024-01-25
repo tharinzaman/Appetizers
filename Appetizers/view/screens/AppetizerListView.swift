@@ -49,7 +49,7 @@ struct AppetizerListView: View {
                 )
             }
             .task {
-                viewModel.getAppetizers()
+                await viewModel.getAppetizers()
             }
             .blur(
                 radius: viewModel.shouldShowDetail ? 20 : 0

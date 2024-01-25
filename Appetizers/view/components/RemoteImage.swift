@@ -32,29 +32,31 @@ struct AppetizerRemoteImage: View {
         )
         self.urlString = urlString
     }
-        
+    
     var body: some View {
         RemoteImage(
             image: viewModel.image
         )
         .onAppear {
-            viewModel.load(
-                from: urlString
-            )
+            Task {
+                await viewModel.load(
+                    from: urlString
+                )
             }
+        }
         // Use AsyncImage if caching isn't important
-//        AsyncImage(url: URL(string: urlString)) { image in
-//            image
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .frame(width: 120, height: 90)
-//                .cornerRadius(8)
-//        } placeholder: {
-//            Image("cheeseburger")
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .frame(width: 120, height: 90)
-//                .cornerRadius(8)
-//        }
+        //        AsyncImage(url: URL(string: urlString)) { image in
+        //            image
+        //                .resizable()
+        //                .aspectRatio(contentMode: .fit)
+        //                .frame(width: 120, height: 90)
+        //                .cornerRadius(8)
+        //        } placeholder: {
+        //            Image("cheeseburger")
+        //                .resizable()
+        //                .aspectRatio(contentMode: .fit)
+        //                .frame(width: 120, height: 90)
+        //                .cornerRadius(8)
+        //        }
     }
 }

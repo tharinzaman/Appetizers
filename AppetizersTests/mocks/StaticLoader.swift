@@ -37,19 +37,25 @@ struct StaticLoader {
     
     static func loadJSONFromFileReturnDecodedData(
         file: String
-    ) throws -> [Appetizer] {
+    ) -> [Appetizer] {
         
         guard let path = Bundle.main.path(
             forResource: file,
             ofType: "json"
         ) else {
-            throw AppetizerError.invalidURL
+            XCTFail(
+                "Failed to get path"
+            )
+            return []
         }
         
         guard let data = FileManager.default.contents(
             atPath: path
         ) else {
-            throw AppetizerError.invalidData
+            XCTFail(
+                "Failed to get data"
+            )
+            return []
         }
         
         do {
@@ -58,7 +64,10 @@ struct StaticLoader {
                 from: data
             ).request
         } catch {
-            throw AppetizerError.unableToComplete
+            XCTFail(
+                "Failed to get array"
+            )
+            return []
         }
     }
     
@@ -89,22 +98,31 @@ struct StaticLoader {
     static func loadImageFromFileReturnUIImage(
         file: String,
         fileExt type: String
-    ) throws -> UIImage? {
+    ) -> UIImage? {
         guard let path = Bundle.main.path(
             forResource: file,
             ofType: type
         ) else {
-            throw AppetizerError.invalidURL
+            XCTFail(
+                "Failed to get path"
+            )
+            return nil
         }
         guard let data = FileManager.default.contents(
             atPath: path
         ) else {
-            throw AppetizerError.invalidData
+            XCTFail(
+                "Failed to get data"
+            )
+            return nil
         }
         guard let image = UIImage(
             data: data
         ) else {
-            throw AppetizerError.unableToComplete
+            XCTFail(
+                "Failed to get image"
+            )
+            return nil
         }
         return image
     }

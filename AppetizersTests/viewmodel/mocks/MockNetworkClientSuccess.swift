@@ -9,18 +9,16 @@ import Foundation
 @testable import Appetizers
 import SwiftUI
 
-class MockNetworkClient {
+class MockNetworkClientSuccess: NetworkClientProtocol {
+        
     @Published private(set) var fetchCalled = false
     @Published private(set) var fetchImageCalled = false
-}
-
-class MockNetworkClientSuccess: MockNetworkClient, NetworkClientProtocol {
     
     func fetch(
         session: URLSession
     ) throws -> [Appetizer] {
         fetchCalled = true
-        return try StaticLoader.loadJSONFromFileReturnDecodedData(
+        return StaticLoader.loadJSONFromFileReturnDecodedData(
             file: "MockNetworkResponse"
         )
     }
@@ -30,10 +28,54 @@ class MockNetworkClientSuccess: MockNetworkClient, NetworkClientProtocol {
         from urlString: String
     ) throws -> UIImage? {
         fetchImageCalled = true
-        return try StaticLoader.loadImageFromFileReturnUIImage(
+        return StaticLoader.loadImageFromFileReturnUIImage(
             file: "AsianFlankSteak",
             fileExt: "jpg"
         )
+    }
+    
+}
+
+class MockNetworkClientThrowInvalidURL: NetworkClientProtocol {
+        
+    @Published private(set) var fetchCalled = false
+    @Published private(set) var fetchImageCalled = false
+    
+    func fetch(
+        session: URLSession
+    ) throws -> [Appetizer] {
+        fetchCalled = true
+        throw AppetizerError.invalidURL
+    }
+    
+    func fetchImage(
+        session: URLSession,
+        from urlString: String
+    ) throws -> UIImage? {
+        fetchImageCalled = true
+        throw AppetizerError.invalidURL
+    }
+    
+}
+
+class MockNetworkClientThrowInvalidData: NetworkClientProtocol {
+        
+    @Published private(set) var fetchCalled = false
+    @Published private(set) var fetchImageCalled = false
+    
+    func fetch(
+        session: URLSession
+    ) throws -> [Appetizer] {
+        fetchCalled = true
+        throw AppetizerError.invalidData
+    }
+    
+    func fetchImage(
+        session: URLSession,
+        from urlString: String
+    ) throws -> UIImage? {
+        fetchImageCalled = true
+        throw AppetizerError.invalidData
     }
     
 }
