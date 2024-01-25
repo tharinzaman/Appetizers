@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class StorageProtocolImpl: StorageProtocol {
+class StorageImpl: StorageProtocol {
     
     @AppStorage("user") private var userData: Data?
         
