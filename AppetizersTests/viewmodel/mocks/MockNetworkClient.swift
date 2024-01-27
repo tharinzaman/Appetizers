@@ -11,8 +11,8 @@ import SwiftUI
 
 class MockNetworkClientSuccess: NetworkClientProtocol {
         
-    @Published private(set) var fetchCalled = false
-    @Published private(set) var fetchImageCalled = false
+    private(set) var fetchCalled = false
+    private(set) var fetchImageCalled = false
     
     func fetch(
         session: URLSession
@@ -38,8 +38,8 @@ class MockNetworkClientSuccess: NetworkClientProtocol {
 
 class MockNetworkClientThrowInvalidURL: NetworkClientProtocol {
         
-    @Published private(set) var fetchCalled = false
-    @Published private(set) var fetchImageCalled = false
+    private(set) var fetchCalled = false
+    private(set) var fetchImageCalled = false
     
     func fetch(
         session: URLSession
@@ -60,8 +60,8 @@ class MockNetworkClientThrowInvalidURL: NetworkClientProtocol {
 
 class MockNetworkClientThrowInvalidData: NetworkClientProtocol {
         
-    @Published private(set) var fetchCalled = false
-    @Published private(set) var fetchImageCalled = false
+    private(set) var fetchCalled = false
+    private(set) var fetchImageCalled = false
     
     func fetch(
         session: URLSession

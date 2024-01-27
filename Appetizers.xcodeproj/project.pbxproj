@@ -10,6 +10,7 @@
 		E10314442B487913007697FF /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10314432B487913007697FF /* Date+Ext.swift */; };
 		E124CCF12B62E314001100AC /* ImageLoaderViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E124CCF02B62E314001100AC /* ImageLoaderViewModelTest.swift */; };
 		E128C1162B55A11C0039474C /* NetworkClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E128C1152B55A11C0039474C /* NetworkClientTest.swift */; };
+		E138EA3E2B65258200B9BC4E /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E138EA3D2B65258200B9BC4E /* MockStorage.swift */; };
 		E13EA8A92B599E6700DE4054 /* StaticLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13EA8A82B599E6700DE4054 /* StaticLoader.swift */; };
 		E164CA422B52EC930098718A /* AppetizerListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164CA412B52EC930098718A /* AppetizerListViewModelTest.swift */; };
 		E164CA442B52ECF00098718A /* AccountViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164CA432B52ECF00098718A /* AccountViewModelTest.swift */; };
@@ -61,7 +62,7 @@
 		E1D62E0B2B50778E000E9824 /* StorageProtocolImplTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D62E0A2B50778E000E9824 /* StorageProtocolImplTest.swift */; };
 		E1EE6FC52B6295D7000F8219 /* AsianFlankSteak.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E1EE6FC42B6295D7000F8219 /* AsianFlankSteak.jpg */; };
 		E1EE6FC62B6295D7000F8219 /* AsianFlankSteak.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E1EE6FC42B6295D7000F8219 /* AsianFlankSteak.jpg */; };
-		E1EE6FCC2B629E75000F8219 /* MockNetworkClientSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EE6FCB2B629E75000F8219 /* MockNetworkClientSuccess.swift */; };
+		E1EE6FCC2B629E75000F8219 /* MockNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EE6FCB2B629E75000F8219 /* MockNetworkClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		E10314432B487913007697FF /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		E124CCF02B62E314001100AC /* ImageLoaderViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderViewModelTest.swift; sourceTree = "<group>"; };
 		E128C1152B55A11C0039474C /* NetworkClientTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientTest.swift; sourceTree = "<group>"; };
+		E138EA3D2B65258200B9BC4E /* MockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
 		E13EA8A42B595CC700DE4054 /* MockNetworkResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockNetworkResponse.json; sourceTree = "<group>"; };
 		E13EA8A82B599E6700DE4054 /* StaticLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticLoader.swift; sourceTree = "<group>"; };
 		E164CA412B52EC930098718A /* AppetizerListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppetizerListViewModelTest.swift; sourceTree = "<group>"; };
@@ -137,7 +139,7 @@
 		E1D62E062B506BCA000E9824 /* NetworkClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientProtocol.swift; sourceTree = "<group>"; };
 		E1D62E0A2B50778E000E9824 /* StorageProtocolImplTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProtocolImplTest.swift; sourceTree = "<group>"; };
 		E1EE6FC42B6295D7000F8219 /* AsianFlankSteak.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = AsianFlankSteak.jpg; sourceTree = "<group>"; };
-		E1EE6FCB2B629E75000F8219 /* MockNetworkClientSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkClientSuccess.swift; sourceTree = "<group>"; };
+		E1EE6FCB2B629E75000F8219 /* MockNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -494,7 +496,8 @@
 		E1EE6FC72B629A02000F8219 /* mocks */ = {
 			isa = PBXGroup;
 			children = (
-				E1EE6FCB2B629E75000F8219 /* MockNetworkClientSuccess.swift */,
+				E1EE6FCB2B629E75000F8219 /* MockNetworkClient.swift */,
+				E138EA3D2B65258200B9BC4E /* MockStorage.swift */,
 			);
 			path = mocks;
 			sourceTree = "<group>";
@@ -682,8 +685,9 @@
 				E128C1162B55A11C0039474C /* NetworkClientTest.swift in Sources */,
 				E1D62E042B505E01000E9824 /* OrderTest.swift in Sources */,
 				E1D62E0B2B50778E000E9824 /* StorageProtocolImplTest.swift in Sources */,
-				E1EE6FCC2B629E75000F8219 /* MockNetworkClientSuccess.swift in Sources */,
+				E1EE6FCC2B629E75000F8219 /* MockNetworkClient.swift in Sources */,
 				E124CCF12B62E314001100AC /* ImageLoaderViewModelTest.swift in Sources */,
+				E138EA3E2B65258200B9BC4E /* MockStorage.swift in Sources */,
 				E164CA442B52ECF00098718A /* AccountViewModelTest.swift in Sources */,
 				E1977A8B2B5ED97F0013AB57 /* MockURLSession.swift in Sources */,
 				E13EA8A92B599E6700DE4054 /* StaticLoader.swift in Sources */,
