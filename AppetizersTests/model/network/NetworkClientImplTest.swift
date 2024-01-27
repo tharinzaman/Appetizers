@@ -8,7 +8,7 @@
 import XCTest
 @testable import Appetizers
 
-final class NetworkClientTest: XCTestCase {
+final class NetworkClientImplTest: XCTestCase {
     
     private var session: URLSession!
     private var jsonUrl: URL!
