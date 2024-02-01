@@ -1,13 +1,13 @@
 //
-//  AppetizersUITests.swift
+//  AppetizerListViewTest.swift
 //  AppetizersUITests
 //
-//  Created by Tharin Zaman on 11/01/2024.
+//  Created by Tharin Zaman on 30/01/2024.
 //
 
 import XCTest
 
-final class AppetizersUITests: XCTestCase {
+final class AppetizerListViewTest: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
