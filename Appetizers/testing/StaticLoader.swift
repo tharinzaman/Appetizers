@@ -5,9 +5,8 @@
 //  Created by Tharin Zaman on 18/01/2024.
 //
 
+#if DEBUG
 import Foundation
-@testable import Appetizers
-import XCTest
 import SwiftUI
 
 struct StaticLoader {
@@ -19,18 +18,12 @@ struct StaticLoader {
             forResource: file,
             ofType: "json"
         ) else {
-            XCTFail(
-                "Failed to get path"
-            )
-            return nil
+            fatalError("Invalid path")
         }
         guard let data = FileManager.default.contents(
             atPath: path
         ) else {
-            XCTFail(
-                "Failed to get data"
-            )
-            return nil
+            fatalError("No data for path")
         }
         return data
     }
@@ -43,19 +36,13 @@ struct StaticLoader {
             forResource: file,
             ofType: "json"
         ) else {
-            XCTFail(
-                "Failed to get path"
-            )
-            return []
+            fatalError("Invalid path")
         }
         
         guard let data = FileManager.default.contents(
             atPath: path
         ) else {
-            XCTFail(
-                "Failed to get data"
-            )
-            return []
+            fatalError("No data for path")
         }
         
         do {
@@ -64,10 +51,7 @@ struct StaticLoader {
                 from: data
             ).request
         } catch {
-            XCTFail(
-                "Failed to get array"
-            )
-            return []
+            fatalError("Invalid data")
         }
     }
     
@@ -79,18 +63,12 @@ struct StaticLoader {
             forResource: file,
             ofType: type
         ) else {
-            XCTFail(
-                "Failed to get path"
-            )
-            return nil
+            fatalError("Invalid path")
         }
         guard let data = FileManager.default.contents(
             atPath: path
         ) else {
-            XCTFail(
-                "Failed to get data"
-            )
-            return nil
+            fatalError("No data for path")
         }
         return data
     }
@@ -103,28 +81,20 @@ struct StaticLoader {
             forResource: file,
             ofType: type
         ) else {
-            XCTFail(
-                "Failed to get path"
-            )
-            return nil
+            fatalError("Invalid path")
         }
         guard let data = FileManager.default.contents(
             atPath: path
         ) else {
-            XCTFail(
-                "Failed to get data"
-            )
-            return nil
+            fatalError("No data for path")
         }
         guard let image = UIImage(
             data: data
         ) else {
-            XCTFail(
-                "Failed to get image"
-            )
-            return nil
+            fatalError("Invalid data")
         }
         return image
     }
     
 }
+#endif

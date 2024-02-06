@@ -17,7 +17,7 @@ final class AppetizerListViewSuccessTest: XCTestCase {
     private var detailView: XCUIElement!
     
     override func setUp() {
-        continueAfterFailure = false
+        continueAfterFailure = true
         app = XCUIApplication()
         app.launchArguments = ["-ui-testing"]
         app.launchEnvironment = ["-networking-success":"1"]
@@ -26,7 +26,6 @@ final class AppetizerListViewSuccessTest: XCTestCase {
         list = app.collectionViews["appetizer-list"]
         let listItemsPredicate = NSPredicate(format: "identifier CONTAINS 'item_'")
         listItems = list.descendants(matching: .any).containing(listItemsPredicate)
-        
         detailView = app.descendants(matching: .any)["detail-view"]
     }
     
@@ -38,7 +37,7 @@ final class AppetizerListViewSuccessTest: XCTestCase {
     }
     
     func test_listContains14Items_tapItemShowDetailView_success() {
-        XCTAssertTrue(list.waitForExistence(timeout: 60))
+        XCTAssertTrue(list.waitForExistence(timeout: 5))
         XCTAssertEqual(listItems.count, 14)
     }
     
@@ -49,10 +48,11 @@ final class AppetizerListViewSuccessTest: XCTestCase {
     
     func test_tapAddToOrderButton_closeDetailView() {
         listItems.firstMatch.tap()
-        let addToOrderButton = detailView.buttons[]
+        let addToOrderButton = app.buttons["add-to-order-button"]
         addToOrderButton.tap()
         XCTAssertFalse(detailView.exists)
         XCTAssertTrue(list.exists)
     }
 
 }
+

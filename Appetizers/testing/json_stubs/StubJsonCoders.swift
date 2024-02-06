@@ -5,8 +5,8 @@
 //  Created by Tharin Zaman on 29/01/2024.
 //
 
+#if DEBUG
 import Foundation
-@testable import Appetizers
 
 final class StubEncoderSuccess: JSONEncoder {
     override func encode<T: Encodable>(
@@ -45,3 +45,5 @@ final class StubDecoderFailure: JSONDecoder {
         throw AppetizerError.invalidData
     }
 }
+
+#endif

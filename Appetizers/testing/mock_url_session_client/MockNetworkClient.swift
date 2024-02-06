@@ -5,28 +5,26 @@
 //  Created by Tharin Zaman on 25/01/2024.
 //
 
+#if DEBUG
 import Foundation
-@testable import Appetizers
 import SwiftUI
 
 class MockNetworkClientSuccess: NetworkClientProtocol {
-        
+    
     private(set) var fetchCalled = false
     private(set) var fetchImageCalled = false
     
     func fetch(
         session: URLSession
-    ) throws -> [Appetizer] {
+    ) -> [Appetizer] {
         fetchCalled = true
-        return StaticLoader.loadJSONFromFileReturnDecodedData(
-            file: "MockNetworkResponse"
-        )
+        return StaticLoader.loadJSONFromFileReturnDecodedData(file: "MockNetworkResponse")
     }
     
     func fetchImage(
         session: URLSession,
         from urlString: String
-    ) throws -> UIImage? {
+    ) -> UIImage? {
         fetchImageCalled = true
         return StaticLoader.loadImageFromFileReturnUIImage(
             file: "AsianFlankSteak",
@@ -37,7 +35,7 @@ class MockNetworkClientSuccess: NetworkClientProtocol {
 }
 
 class MockNetworkClientThrowInvalidURL: NetworkClientProtocol {
-        
+    
     private(set) var fetchCalled = false
     private(set) var fetchImageCalled = false
     
@@ -59,7 +57,7 @@ class MockNetworkClientThrowInvalidURL: NetworkClientProtocol {
 }
 
 class MockNetworkClientThrowInvalidData: NetworkClientProtocol {
-        
+    
     private(set) var fetchCalled = false
     private(set) var fetchImageCalled = false
     
@@ -79,3 +77,5 @@ class MockNetworkClientThrowInvalidData: NetworkClientProtocol {
     }
     
 }
+#endif
+

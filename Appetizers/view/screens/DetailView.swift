@@ -1,5 +1,7 @@
 import SwiftUI
 
+import SwiftUI
+
 struct DetailView: View {
     
     @EnvironmentObject var order: Order
@@ -38,7 +40,8 @@ struct DetailView: View {
                     appetizer
                 )
                 shouldShowDetail = false
-            }
+            }.accessibilityIdentifier("add-to-order-button")
+
         }
         .frame(
             width: 300,

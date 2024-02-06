@@ -7,15 +7,19 @@
 
 import SwiftUI
 
-final class AccountViewModel: ObservableObject {
-    
+final class AccountViewModel: ObservableObject{
+        
     @Published var user = User()
     @Published var alertItem: AlertItem? = nil
     
-    private let storage : StorageProtocol
+    @AppStorage("user") private var userData: Data?
     
-    init(storage: StorageProtocol) {
-        self.storage = storage
+    private let encoder: JSONEncoder
+    private let decoder: JSONDecoder
+    
+    init(encoder: JSONEncoder, decoder: JSONDecoder) {
+        self.encoder = encoder
+        self.decoder = decoder
     }
     
     var isValidForm: Bool {
@@ -35,9 +39,7 @@ final class AccountViewModel: ObservableObject {
             return
         }
         do {
-            try storage.saveUser(
-                user: self.user
-            )
+            self.userData = try encoder.encode(self.user)
             alertItem = UserAlertItem.userSavedSuccessfully
         } catch {
             alertItem = ErrorAlertItems.unableToSaveUser
@@ -45,10 +47,11 @@ final class AccountViewModel: ObservableObject {
     }
     
     func retrieveUserDetailsFromStorage() {
+        guard let userData else {
+            return
+        }
         do {
-            self.user = try storage.retrieveUser(
-                key: "user"
-            )
+            self.user = try decoder.decode(User.self, from: userData)
         } catch {
             alertItem = ErrorAlertItems.unableToRetrieveUser
         }

@@ -13,11 +13,13 @@ struct AccountView: View {
     @FocusState private var focusedTextField: FocusTextField?
     
     init(
-        storage: StorageProtocol
+        encoder: JSONEncoder,
+        decoder: JSONDecoder
     ) {
         _viewModel = StateObject(
             wrappedValue: AccountViewModel(
-                storage: storage
+                encoder: encoder,
+                decoder: decoder
             )
         )
     }
@@ -61,3 +63,4 @@ struct AccountView: View {
         }
     }
 }
+

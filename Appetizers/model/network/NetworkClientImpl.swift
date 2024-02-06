@@ -7,8 +7,11 @@
 
 import Foundation
 import UIKit
+import Combine
 
 final class NetworkClientImpl: NetworkClientProtocol {
+    
+    static let instance = NetworkClientImpl(decoder: JSONDecoder())
     
     private let cache = NSCache<
         NSString,
@@ -18,6 +21,15 @@ final class NetworkClientImpl: NetworkClientProtocol {
     static let baseURL = "https://seanallen-course-backend.herokuapp.com/swiftui-fundamentals/"
     private let appetizerURL = baseURL + "appetizers"
     
+    private let decoder: JSONDecoder
+    
+    // For combine
+    private var cancellables = Set<AnyCancellable>()
+    @Published var data: [Appetizer] = []
+    
+    init(decoder: JSONDecoder) {
+        self.decoder = decoder
+    }
     
     //    func getAppetizers(
     //        completed: @escaping (
@@ -98,6 +110,20 @@ final class NetworkClientImpl: NetworkClientProtocol {
     //
     //    }
     
+    func fetchWithCombine() throws -> AnyPublisher<AppetizerResponse, Error>{
+        guard let url = URL(string: appetizerURL) else {
+            throw URLError(.badURL)
+        }
+        return URLSession
+            .shared
+            .dataTaskPublisher(for: url)
+            .map( {$0.data} )
+            .decode(type: AppetizerResponse.self, decoder: decoder)
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+    
+    
     func fetch(
         session: URLSession = .shared
     ) async throws -> [Appetizer] {
@@ -116,7 +142,6 @@ final class NetworkClientImpl: NetworkClientProtocol {
         )
         
         do {
-            let decoder = JSONDecoder()
             return try decoder.decode(
                 AppetizerResponse.self,
                 from: data
@@ -227,4 +252,5 @@ final class NetworkClientImpl: NetworkClientProtocol {
     //        }
     //        task.resume()
     //    }
+    
 }

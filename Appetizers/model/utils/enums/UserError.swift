@@ -10,4 +10,5 @@ import Foundation
 enum UserError: Error {
     case unableToSaveUser
     case unableToRetrieveUser
+    case invalidDataType
 }

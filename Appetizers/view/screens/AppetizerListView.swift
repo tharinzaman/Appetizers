@@ -4,7 +4,6 @@
 //
 //  Created by Tharin Zaman on 18/12/2023.
 //
-
 import SwiftUI
 
 struct AppetizerListView: View {
@@ -17,11 +16,20 @@ struct AppetizerListView: View {
         network: NetworkClientProtocol
     ) {
         self.network = network
+#if DEBUG
+        let mockNetworkClient: NetworkClientProtocol = UITestingHelper.networkingSuccess ? MockNetworkClientSuccess() : MockNetworkClientThrowInvalidURL()
+        _viewModel = StateObject(
+            wrappedValue: AppetizerListViewModel(
+                network: UITestingHelper.isUITest ? mockNetworkClient : network
+            )
+        )
+#else
         _viewModel = StateObject(
             wrappedValue: AppetizerListViewModel(
                 network: network
             )
         )
+#endif
     }
     
     var body: some View {
@@ -38,6 +46,7 @@ struct AppetizerListView: View {
                         viewModel.shouldShowDetail = true
                         viewModel.selectedAppetizer = appetizer
                     }
+                    .accessibilityIdentifier("item_\(appetizer.id)")
                 }.navigationTitle(
                     "🍟 Appetizers"
                 )
@@ -46,6 +55,9 @@ struct AppetizerListView: View {
                 )
                 .disabled(
                     viewModel.shouldShowDetail
+                )
+                .accessibilityIdentifier(
+                    "appetizer-list"
                 )
             }
             .task {
@@ -59,7 +71,7 @@ struct AppetizerListView: View {
                     shouldShowDetail: $viewModel.shouldShowDetail,
                     appetizer: viewModel.selectedAppetizer ?? MockData.sampleAppetizer,
                     network: network
-                )
+                ).accessibilityIdentifier("detail-view")
             }
             if viewModel.areAppetizersLoading {
                 LoadingView()

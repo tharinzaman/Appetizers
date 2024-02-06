@@ -7,13 +7,17 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 final class AppetizerListViewModel: ObservableObject {
-    
+        
     private let network: NetworkClientProtocol
+    
+    private var cancellables = Set<AnyCancellable>()
     
     init(network: NetworkClientProtocol) {
         self.network = network
+        getAppetizersWithCombine()
     }
     
     @Published var appetizers: [Appetizer] = []
@@ -44,4 +48,24 @@ final class AppetizerListViewModel: ObservableObject {
             }
 //        }
     }
+    
+    private func getAppetizersWithCombine() {
+        do {
+            try NetworkClientImpl.instance.fetchWithCombine()
+                .sink { completion in
+                    switch completion {
+                    case .finished:
+                        print("Finished")
+                    case .failure(let error):
+                        print("ERROR: \(error.localizedDescription)")
+                    }
+                } receiveValue: { [weak self] appetizers in
+                    self?.appetizers = appetizers.request
+                }
+                .store(in: &cancellables)
+        } catch {
+            print("Error: \(error)")
+        }
+    }
 }
+

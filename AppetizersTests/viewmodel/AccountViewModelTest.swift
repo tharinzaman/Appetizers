@@ -12,21 +12,18 @@ final class AccountViewModelTest: XCTestCase {
     
     private var validUser: User!
     
-    private var mockStorage: MockStorageSuccess!
     private var vm: AccountViewModel!
     
-    private var mockStorageFailure: MockStorageFailure!
-    private var vmFailure: AccountViewModel!
+    private var encoder: JSONEncoder!
+    private var decoder: JSONDecoder!
     
     override func setUp() {
-        mockStorage = MockStorageSuccess()
-        mockStorageFailure = MockStorageFailure()
+        encoder = StubEncoderSuccess()
+        decoder = StubDecoderSuccess()
         
         vm = AccountViewModel(
-            storage: mockStorage
-        )
-        vmFailure = AccountViewModel(
-            storage: mockStorageFailure
+            encoder: self.encoder,
+            decoder: self.decoder
         )
         
         validUser = User(
@@ -35,16 +32,11 @@ final class AccountViewModelTest: XCTestCase {
             email: "tharinzaman@hotmail.com"
         )
         vm.user = validUser
-        vmFailure.user = validUser
-        
     }
     
     override func tearDown() {
         validUser = nil
-        mockStorage = nil
-        mockStorageFailure = nil
         vm = nil
-        vmFailure = nil
     }
     
     func test_isValidForm_True() {
@@ -104,9 +96,6 @@ final class AccountViewModelTest: XCTestCase {
             vm.alertItem?.message,
             UserAlertItem.userSavedSuccessfully.message
         )
-        XCTAssertTrue(
-            mockStorage.saveUserCalled
-        )
     }
     
     func test_saveUserChangesToStorage_failure_invalidForm() {
@@ -122,22 +111,22 @@ final class AccountViewModelTest: XCTestCase {
             vm.alertItem?.message,
             ErrorAlertItems.missingDetail.message
         )
-        XCTAssertFalse(
-            mockStorage.saveUserCalled
-        )
     }
     
     func test_saveUserChangesToStorage_failure_unableToSaveUserError() {
         // ASSIGN
+        encoder = StubEncoderFailure()
+        vm = AccountViewModel(
+            encoder: self.encoder,
+            decoder: self.decoder
+        )
+        vm.user = validUser
         // ACT
-        vmFailure.saveUserChangesToStorage()
+        vm.saveUserChangesToStorage()
         // ASSERT
         XCTAssertEqual(
-            vmFailure.alertItem?.message,
+            vm.alertItem?.message,
             ErrorAlertItems.unableToSaveUser.message
-        )
-        XCTAssertTrue(
-            mockStorageFailure.saveUserCalled
         )
     }
     
@@ -150,21 +139,23 @@ final class AccountViewModelTest: XCTestCase {
             vm.user.email,
             validUser.email
         )
-        XCTAssertTrue(
-            mockStorage.retrieveUserCalled
-        )
     }
     
     func test_retrieveUserDetailsFromStorage_failure_unableToRetrieveUser() {
         // ASSIGN
+        decoder = StubDecoderFailure()
+        vm = AccountViewModel(
+            encoder: self.encoder,
+            decoder: self.decoder
+        )
+        vm.user = validUser
         // ACT
-        vmFailure.retrieveUserDetailsFromStorage()
+        vm.retrieveUserDetailsFromStorage()
         // ASSERT
         XCTAssertEqual(
-            vmFailure.alertItem?.message,
+            vm.alertItem?.message,
             ErrorAlertItems.unableToRetrieveUser.message
         )
-        XCTAssertTrue(mockStorageFailure.retrieveUserCalled)
     }
     
 }

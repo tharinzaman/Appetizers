@@ -15,7 +15,7 @@ final class NetworkClientImplTest: XCTestCase {
     private var imageUrl: URL!
 
     
-    private var client = NetworkClientImpl()
+    private var client = NetworkClientImpl(decoder: JSONDecoder())
     
     override func setUp() {
         jsonUrl = URL(
@@ -44,7 +44,7 @@ final class NetworkClientImplTest: XCTestCase {
             file: "MockNetworkResponse"
         )
         // ACT
-        let result = try await client.fetch(
+        let result: [Appetizer] = try await client.fetch(
             session: self.session
         )
         // ASSERT
@@ -194,3 +194,4 @@ final class NetworkClientImplTest: XCTestCase {
         }
     }
 }
+

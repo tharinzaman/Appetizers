@@ -6,9 +6,10 @@
 //
 
 import Foundation
-import XCTest
 
-/** 
+#if DEBUG
+import Foundation
+/**
 This mock class simulates an API call where we make a request and get back a response and data.
 We use it in order to test the network client.
 */
@@ -27,8 +28,7 @@ class MockURLSession: URLProtocol {
     override func startLoading() {
         
         guard let handler = MockURLSession.loadingHandler else {
-            XCTFail("Loading handler is not set")
-            return
+            fatalError("Loading handler is not set")
         }
         
         let (response, data) = handler()
@@ -43,3 +43,5 @@ class MockURLSession: URLProtocol {
         
     }
 }
+
+#endif

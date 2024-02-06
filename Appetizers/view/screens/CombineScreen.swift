@@ -4,15 +4,30 @@
 //
 //  Created by Tharin Zaman on 06/02/2024.
 //
-
 import SwiftUI
 
 struct CombineScreen: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    
+    @StateObject private var vm: AppetizerListViewModel
+    
+    private let network: NetworkClientProtocol
+    
+    init(network: NetworkClientProtocol) {
+        self.network = network
+        _vm = StateObject(
+            wrappedValue: AppetizerListViewModel(
+                network: network
+            )
+        )
     }
-}
-
-#Preview {
-    CombineScreen()
+    
+    var body: some View {
+        ScrollView {
+            VStack {
+                ForEach(vm.appetizers) { appetizer in
+                    Text(appetizer.name)
+                }
+            }
+        }
+    }
 }
