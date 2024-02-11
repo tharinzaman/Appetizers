@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Package2">
+   </FileRef>
+   <FileRef
+      location = "group:Appetizers/Package">
+   </FileRef>
+   <FileRef
       location = "container:Appetizers.xcodeproj">
    </FileRef>
 </Workspace>

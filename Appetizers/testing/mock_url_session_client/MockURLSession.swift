@@ -14,7 +14,7 @@ This mock class simulates an API call where we make a request and get back a res
 We use it in order to test the network client.
 */
 class MockURLSession: URLProtocol {
-    
+        
     static var loadingHandler: (() -> (HTTPURLResponse, Data?))?
     
     override class func canInit(with request: URLRequest) -> Bool {
