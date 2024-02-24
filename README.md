@@ -1,3 +1,3 @@
-This project was initially created whilst working through a course by Sean Allen on the fundamentals of SwiftUI.
-Since finishing the course, I have added multiple features to this project including unit tests, integration tests, UI tests, 
-dependency injection and more.
+This project builds upon an application created whilst working through Sean Allen's SwiftUI Basics course.
+Since finishing the course I have independently added multiple features to this project including but not limited to, unit tests, integration tests, UI tests, 
+dependency injection, UI refactors and more.
