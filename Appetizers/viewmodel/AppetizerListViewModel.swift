@@ -23,7 +23,7 @@ final class AppetizerListViewModel: ObservableObject {
     @Published var appetizers: [Appetizer] = []
     @Published var alertItem: AlertItem? = nil
     @Published var areAppetizersLoading: Bool = false
-    @Published var shouldShowDetail = false
+    @Published var shouldShowDaetail = false
     @Published var selectedAppetizer: Appetizer? = nil
         
     @MainActor

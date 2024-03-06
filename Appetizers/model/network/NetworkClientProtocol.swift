@@ -18,3 +18,20 @@ protocol NetworkClientProtocol {
         from urlString: String
     ) async throws -> UIImage?
 }
+
+protocol NetworkingManagerImpl {
+    
+    func request<T: Codable>() async throws -> T
+    
+    func requestImage<T:Codable>() async throws -> T
+}
+
+protocol NetworkingManager {
+    
+    associatedtype T
+    associatedtype I
+    
+    func request() async throws -> T
+    
+    func requestImage() async throws -> I
+}

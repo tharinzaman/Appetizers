@@ -22,11 +22,7 @@ final class NetworkClientImpl: NetworkClientProtocol {
     private let appetizerURL = baseURL + "appetizers"
     
     private let decoder: JSONDecoder
-    
-    // For combine
-    private var cancellables = Set<AnyCancellable>()
-    @Published var data: [Appetizer] = []
-    
+        
     init(decoder: JSONDecoder) {
         self.decoder = decoder
     }

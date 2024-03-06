@@ -3,14 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		E10314442B487913007697FF /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10314432B487913007697FF /* Date+Ext.swift */; };
-		E113993C2B792FBA001A4E57 /* PackageData in Frameworks */ = {isa = PBXBuildFile; productRef = E113993B2B792FBA001A4E57 /* PackageData */; };
-		E113993E2B792FBA001A4E57 /* PackageDomain in Frameworks */ = {isa = PBXBuildFile; productRef = E113993D2B792FBA001A4E57 /* PackageDomain */; };
-		E11399402B792FBA001A4E57 /* PackagePresentation in Frameworks */ = {isa = PBXBuildFile; productRef = E113993F2B792FBA001A4E57 /* PackagePresentation */; };
 		E124CCF12B62E314001100AC /* ImageLoaderViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E124CCF02B62E314001100AC /* ImageLoaderViewModelTest.swift */; };
 		E164CA422B52EC930098718A /* AppetizerListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164CA412B52EC930098718A /* AppetizerListViewModelTest.swift */; };
 		E164CA442B52ECF00098718A /* AccountViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164CA432B52ECF00098718A /* AccountViewModelTest.swift */; };
@@ -144,9 +141,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E113993C2B792FBA001A4E57 /* PackageData in Frameworks */,
-				E113993E2B792FBA001A4E57 /* PackageDomain in Frameworks */,
-				E11399402B792FBA001A4E57 /* PackagePresentation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,11 +161,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E11399412B793359001A4E57 /* Packages */ = {
+		E113994A2B79397A001A4E57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Packages;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E196F68E2B72D15700497135 /* models */ = {
@@ -313,11 +307,11 @@
 		E1C30F1B2B307CD900274192 = {
 			isa = PBXGroup;
 			children = (
-				E11399412B793359001A4E57 /* Packages */,
 				E1C30F262B307CD900274192 /* Appetizers */,
 				E1D62DE72B505CF5000E9824 /* AppetizersTests */,
 				E1D62DF42B505D0C000E9824 /* AppetizersUITests */,
 				E1C30F252B307CD900274192 /* Products */,
+				E113994A2B79397A001A4E57 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -525,9 +519,6 @@
 			);
 			name = Appetizers;
 			packageProductDependencies = (
-				E113993B2B792FBA001A4E57 /* PackageData */,
-				E113993D2B792FBA001A4E57 /* PackageDomain */,
-				E113993F2B792FBA001A4E57 /* PackagePresentation */,
 			);
 			productName = Appetizers;
 			productReference = E1C30F242B307CD900274192 /* Appetizers.app */;
@@ -603,7 +594,6 @@
 			);
 			mainGroup = E1C30F1B2B307CD900274192;
 			packageReferences = (
-				E113993A2B792FBA001A4E57 /* XCLocalSwiftPackageReference "Appetizers/Package" */,
 			);
 			productRefGroup = E1C30F252B307CD900274192 /* Products */;
 			projectDirPath = "";
@@ -1024,28 +1014,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCLocalSwiftPackageReference section */
-		E113993A2B792FBA001A4E57 /* XCLocalSwiftPackageReference "Appetizers/Package" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Appetizers/Package;
-		};
-/* End XCLocalSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E113993B2B792FBA001A4E57 /* PackageData */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = PackageData;
-		};
-		E113993D2B792FBA001A4E57 /* PackageDomain */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = PackageDomain;
-		};
-		E113993F2B792FBA001A4E57 /* PackagePresentation */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = PackagePresentation;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E1C30F1C2B307CD900274192 /* Project object */;
 }

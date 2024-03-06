@@ -54,8 +54,38 @@ final class NetworkClientImplTest: XCTestCase {
             "The returned response should be decoded should be decoded properly"
         )
     }
+    
+    func test_makeANetworkRequest_invalidUrl() async throws {
+        let data = StaticLoader.loadJSONFromFileReturnData(
+            file: "MockNetworkResponse"
+        )
+        MockURLSession.loadingHandler = {
+            let response = HTTPURLResponse()
+            return (
+                response,
+                data
+            )
+        }
+        // ACT
+        do {
+            _ = try await client.fetch(
+                session: self.session
+            )
+        } catch {
+            guard let appetizerError = error as? AppetizerError else {
+                XCTFail(
+                    "Wrong type of error"
+                )
+                return
+            }
+            // ASSERT
+            XCTAssertEqual(
+                appetizerError,
+                AppetizerError.invalidURL
+            )
+        }
+    }
 
-    // For some reason the test isn't throwing the error
     func test_makeANetworkRequest_failure_invalidData() async {
         // ASSIGN
         // Intentionally use wrong type of data
