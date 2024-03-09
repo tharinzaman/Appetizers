@@ -95,7 +95,6 @@ final class NetworkClientImplTest: XCTestCase {
             _ = try await client.fetch(
                 session: self.session
             )
-            print("No exception thrown")
         } catch {
             guard let appetizerError = error as? AppetizerError else {
                 XCTFail(
@@ -103,9 +102,6 @@ final class NetworkClientImplTest: XCTestCase {
                 )
                 return
             }
-            print(
-                "Exception has been caught"
-            )
             // ASSERT
             XCTAssertEqual(
                 appetizerError,
@@ -149,9 +145,6 @@ final class NetworkClientImplTest: XCTestCase {
                 )
                 return
             }
-            print(
-                "Exception has been caught"
-            )
             XCTAssertEqual(
                 appetizerError,
                 AppetizerError.invalidURL
@@ -176,9 +169,6 @@ final class NetworkClientImplTest: XCTestCase {
                 )
                 return
             }
-            print(
-                "Exception has been caught"
-            )
             // ASSERT
             XCTAssertEqual(
                 appetizerError,
